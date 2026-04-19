@@ -1,6 +1,6 @@
 [versions]
 aboutLibraries = "14.0.1"
-androidGradlePlugin = "8.13.1"
+androidGradlePlugin = "9.1.1"
 appcompat = "1.7.1"
 composeBom = "2026.03.01"
 datastorePreferences = "1.2.1"
@@ -46,6 +46,5 @@ material = { module = "com.google.android.material:material", version.ref = "mat
 [plugins]
 aboutlibraries = { id = "com.mikepenz.aboutlibraries.plugin.android", version.ref = "aboutLibraries"}
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
