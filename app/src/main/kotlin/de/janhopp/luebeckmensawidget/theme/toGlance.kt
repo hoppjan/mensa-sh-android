@@ -1,5 +1,6 @@
 package de.janhopp.luebeckmensawidget.theme
 
+import android.annotation.SuppressLint
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -9,13 +10,14 @@ import androidx.glance.ColorFilter
 import androidx.glance.LocalContext
 import androidx.glance.unit.ColorProvider
 
+@SuppressLint("RestrictedApi")
 fun androidx.compose.ui.text.TextStyle.toGlance(): androidx.glance.text.TextStyle =
     androidx.glance.text.TextStyle(
         color = ColorProvider(color),
         fontStyle = fontStyle?.toGlance(),
         fontSize = fontSize.toGlance(),
         fontWeight = fontWeight?.toGlance(),
-        textAlign = textAlign?.toGlance(),
+        textAlign = textAlign.toGlance(),
         textDecoration = textDecoration?.toGlance(),
         fontFamily = fontFamily?.toGlance()
     )
@@ -67,6 +69,7 @@ fun androidx.compose.ui.text.font.FontFamily.toGlance(): androidx.glance.text.Fo
 
 fun TextUnit.toGlance(): TextUnit = TextUnit(value, TextUnitType.Sp)
 
+@SuppressLint("RestrictedApi")
 fun Color.toColorFilter() = ColorFilter.tint(ColorProvider(color = this))
 
 @Composable
