@@ -1,10 +1,13 @@
 package de.janhopp.luebeckmensawidget.ui.activity
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,7 +38,9 @@ fun MensaDayView(
     val mealsInSelectedLocations = day.meals.filter { meal -> meal.location.code in locations.map { it.code }.toSet() }
 
     Column(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
+            .padding(vertical = 4.dp)
+            .fillMaxSize()
     ) {
         if (mealsInSelectedLocations.isEmpty())
             MensaErrorView(
@@ -51,15 +56,26 @@ fun MensaDayView(
                     .filterByDiet(dietFilter)
                 val mealsByLocation = meals.groupBy { it.location }
                 items(mealsByLocation.keys.toList()) { location ->
-                    SectionLabel(
-                        text = location.name,
+                    Column(
                         modifier = Modifier
-                            .padding(horizontal = 12.dp, vertical = 4.dp)
-                            .padding(top = 8.dp),
-                    )
-                    Column(modifier = Modifier.padding(horizontal = 4.dp)) {
-                        mealsByLocation[location]?.forEach { meal ->
-                            MealView(meal, useEmoji, priceGroup, allergenCodes)
+                            .fillMaxWidth()
+                            .padding(vertical = 4.dp)
+                            .background(
+                                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.7f),
+                                shape = RoundedCornerShape(size = 16.dp),
+                            )
+
+                    ) {
+                        SectionLabel(
+                            text = location.name,
+                            modifier = Modifier
+                                .padding(horizontal = 12.dp, vertical = 4.dp)
+                                .padding(top = 8.dp),
+                        )
+                        Column(modifier = Modifier.padding(horizontal = 4.dp)) {
+                            mealsByLocation[location]?.forEach { meal ->
+                                MealView(meal, useEmoji, priceGroup, allergenCodes)
+                            }
                         }
                     }
                 }
