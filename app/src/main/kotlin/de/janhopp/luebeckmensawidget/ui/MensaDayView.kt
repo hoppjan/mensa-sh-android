@@ -1,19 +1,25 @@
 package de.janhopp.luebeckmensawidget.ui
 
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceModifier
 import androidx.glance.action.actionStartActivity
 import androidx.glance.action.clickable
+import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.lazy.LazyColumn
 import androidx.glance.appwidget.lazy.items
+import androidx.glance.background
 import androidx.glance.layout.Column
+import androidx.glance.layout.ColumnScope
+import androidx.glance.layout.Spacer
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.fillMaxWidth
+import androidx.glance.layout.height
 import androidx.glance.layout.padding
 import androidx.glance.text.FontWeight
+import androidx.glance.text.TextDefaults
 import de.janhopp.luebeckmensawidget.R
 import de.janhopp.luebeckmensawidget.api.model.Meal
 import de.janhopp.luebeckmensawidget.api.model.MensaDay
@@ -23,9 +29,9 @@ import de.janhopp.luebeckmensawidget.api.model.filterDeals
 import de.janhopp.luebeckmensawidget.api.model.formatPrice
 import de.janhopp.luebeckmensawidget.api.model.getFor
 import de.janhopp.luebeckmensawidget.theme.glanceString
-import de.janhopp.luebeckmensawidget.theme.toGlance
 import de.janhopp.luebeckmensawidget.ui.activity.MensaDayActivity
 import de.janhopp.luebeckmensawidget.ui.components.StyledText
+import de.janhopp.luebeckmensawidget.ui.components.appTextStyle
 import de.janhopp.luebeckmensawidget.ui.utils.glanceString
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
 
@@ -53,15 +59,20 @@ fun MensaDayView(day: MensaDay, widgetConfig: MensaWidgetConfig) {
                 val meals = day.meals.filterDeals(isEnabled = filterDeals).filterByDiet(dietFilter)
                 val mealsByLocation = meals.groupBy { it.location }
                 items(items = mealsByLocation.keys.toList()) { location ->
-                    Column {
+                    PaddedColumn(
+                        modifier = GlanceModifier
+                            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.7f)),
+                    ) {
                         StyledText(
                             modifier = GlanceModifier
                                 .fillMaxWidth()
                                 .clickable(onClick = actionStartActivity<MensaDayActivity>())
                                 .padding(horizontal = 12.dp, vertical = 2.dp)
                                 .padding(top = 8.dp),
-                            style = MaterialTheme.typography.labelLarge.copy(color = MaterialTheme.colorScheme.onPrimaryContainer)
-                                .toGlance().copy(fontWeight = FontWeight.Bold),
+                            style = TextDefaults.appTextStyle.copy(
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 16.sp,
+                            ),
                             text = location.name,
                         )
                         Column(modifier = GlanceModifier.padding(horizontal = 4.dp)) {
@@ -89,7 +100,7 @@ fun MealView(
             .clickable(actionStartActivity<MensaDayActivity>())
     ) {
         StyledText(
-            style = LocalTextStyle.current.toGlance().copy(fontWeight = FontWeight.Bold),
+            style = TextDefaults.appTextStyle.copy(fontWeight = FontWeight.Bold),
             text = if (useEmoji) meal.widgetName else meal.name,
         )
 
@@ -100,5 +111,19 @@ fun MealView(
 
         val price = meal.price.getFor(priceGroup).formatPrice()
         if (price != null) StyledText(text = price)
+    }
+}
+
+@Composable
+fun PaddedColumn(
+    modifier: GlanceModifier,
+    content: @Composable ColumnScope.() -> Unit,
+) {
+    Column(
+        modifier = GlanceModifier
+            .padding(horizontal = 8.dp, vertical = 1.dp)
+    ) {
+        Column(modifier = modifier.cornerRadius(16.dp), content = content)
+        Spacer(GlanceModifier.height(7.dp))
     }
 }

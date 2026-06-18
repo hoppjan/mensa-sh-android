@@ -1,6 +1,5 @@
 package de.janhopp.luebeckmensawidget.ui
 
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -9,9 +8,10 @@ import androidx.glance.layout.Box
 import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.padding
 import androidx.glance.text.FontWeight
+import androidx.glance.text.TextDefaults
 import de.janhopp.luebeckmensawidget.api.model.MensaDay
-import de.janhopp.luebeckmensawidget.theme.toGlance
 import de.janhopp.luebeckmensawidget.ui.components.StyledText
+import de.janhopp.luebeckmensawidget.ui.components.appTextStyle
 import de.janhopp.luebeckmensawidget.utils.toDisplayString
 
 @Composable
@@ -24,7 +24,7 @@ fun DateTopBar(day: MensaDay) {
     ) {
         StyledText(
             text = day.toDisplayString(),
-            style = LocalTextStyle.current.toGlance()
+            style = TextDefaults.appTextStyle
                 .copy(fontWeight = FontWeight.Bold, fontSize = 16.sp)
         )
     }
