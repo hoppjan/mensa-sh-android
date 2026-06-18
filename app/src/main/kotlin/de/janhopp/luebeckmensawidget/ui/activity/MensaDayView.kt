@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import de.janhopp.luebeckmensawidget.R
 import de.janhopp.luebeckmensawidget.api.model.Meal
 import de.janhopp.luebeckmensawidget.api.model.MensaDay
@@ -66,11 +67,14 @@ fun MensaDayView(
                             )
 
                     ) {
-                        SectionLabel(
+                        Text(
                             text = location.name,
                             modifier = Modifier
-                                .padding(horizontal = 12.dp, vertical = 4.dp)
+                                .padding(start = 16.dp, top = 6.dp, bottom = 4.dp)
                                 .padding(top = 8.dp),
+                            color =  MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold,
                         )
                         Column(modifier = Modifier.padding(horizontal = 4.dp)) {
                             mealsByLocation[location]?.forEach { meal ->
@@ -95,7 +99,7 @@ fun MealView(
     ) {
         Text(
             text = if (useEmoji) meal.widgetName else meal.name,
-            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.SemiBold),
+            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium),
         )
 
         val warnAllergens = meal.allergens.filter { it.code in allergenCodes }
