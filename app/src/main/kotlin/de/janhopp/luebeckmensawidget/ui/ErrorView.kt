@@ -1,7 +1,6 @@
 package de.janhopp.luebeckmensawidget.ui
 
 import androidx.annotation.DrawableRes
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
@@ -18,9 +17,9 @@ import androidx.glance.layout.padding
 import androidx.glance.layout.size
 import androidx.glance.layout.wrapContentSize
 import androidx.glance.text.TextAlign
+import androidx.glance.text.TextDefaults
 import de.janhopp.luebeckmensawidget.R
 import de.janhopp.luebeckmensawidget.theme.toColorFilter
-import de.janhopp.luebeckmensawidget.theme.toGlance
 import de.janhopp.luebeckmensawidget.ui.activity.MensaDayActivity
 import de.janhopp.luebeckmensawidget.ui.components.StyledText
 
@@ -55,7 +54,7 @@ fun ErrorView(
                     modifier = GlanceModifier
                         .padding(all = 8.dp)
                         .clickable(actionStartActivity<MensaDayActivity>()),
-                    style = LocalTextStyle.current.toGlance()
+                    style = TextDefaults.defaultTextStyle
                         .copy(textAlign = TextAlign.Center),
                 )
             }
