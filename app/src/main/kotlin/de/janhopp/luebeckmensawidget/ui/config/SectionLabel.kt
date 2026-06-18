@@ -14,7 +14,7 @@ fun SectionLabel(
 ) {
     Text(
         text = text,
-        color = MaterialTheme.colorScheme.onPrimaryContainer,
+        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
         style = MaterialTheme.typography.labelLarge,
         modifier = modifier,
     )
