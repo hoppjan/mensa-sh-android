@@ -13,8 +13,8 @@ android {
         applicationId = "de.janhopp.luebeckmensawidget"
         minSdk = 29
         targetSdk = 37
-        versionCode = 35
-        versionName = "0.10.0"
+        versionCode = 36
+        versionName = "0.10.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
