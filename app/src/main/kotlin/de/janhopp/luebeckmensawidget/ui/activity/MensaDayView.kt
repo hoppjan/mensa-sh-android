@@ -2,6 +2,7 @@ package de.janhopp.luebeckmensawidget.ui.activity
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -24,7 +25,6 @@ import de.janhopp.luebeckmensawidget.api.model.filterByDiet
 import de.janhopp.luebeckmensawidget.api.model.filterDeals
 import de.janhopp.luebeckmensawidget.api.model.formatPrice
 import de.janhopp.luebeckmensawidget.api.model.getFor
-import de.janhopp.luebeckmensawidget.ui.config.SectionLabel
 import de.janhopp.luebeckmensawidget.ui.utils.resId
 import de.janhopp.luebeckmensawidget.widget.MensaWidgetConfig
 
@@ -39,9 +39,7 @@ fun MensaDayView(
     val mealsInSelectedLocations = day.meals.filter { meal -> meal.location.code in locations.map { it.code }.toSet() }
 
     Column(
-        modifier = modifier
-            .padding(vertical = 4.dp)
-            .fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
         if (mealsInSelectedLocations.isEmpty())
             MensaErrorView(
@@ -51,6 +49,7 @@ fun MensaDayView(
         else
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(vertical = 4.dp),
             ) {
                 val meals = mealsInSelectedLocations
                     .filterDeals(isEnabled = filterDeals)
@@ -65,7 +64,6 @@ fun MensaDayView(
                                 color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.7f),
                                 shape = RoundedCornerShape(size = 16.dp),
                             )
-
                     ) {
                         Text(
                             text = location.name,
